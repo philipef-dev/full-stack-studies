@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "user-registration",
   "version": "0.1.0",
   "private": true,
@@ -25,5 +26,19 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+=======
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+>>>>>>> d588516 (Instalando e dando inicio a configuracao do express)
   }
 }
