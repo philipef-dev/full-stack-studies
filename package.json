@@ -39,6 +39,13 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.2"
+<<<<<<< HEAD
 >>>>>>> d588516 (Instalando e dando inicio a configuracao do express)
+=======
+  },
+  "type": "module",
+  "devDependencies": {
+    "prisma": "^6.3.0"
+>>>>>>> adbedc0 (Prisma instalado)
   }
 }
