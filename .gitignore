@@ -42,4 +42,8 @@ yarn-error.log*
 next-env.d.ts
 =======
 node_modules
+<<<<<<< HEAD
 >>>>>>> d588516 (Instalando e dando inicio a configuracao do express)
+=======
+env
+>>>>>>> 08cb6d2 (Instalando o configurando o prisma para adicionar e buscar usuarios)
