@@ -39,6 +39,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.3.1",
+    "cors": "^2.8.5",
     "express": "^4.21.2"
 <<<<<<< HEAD
 >>>>>>> d588516 (Instalando e dando inicio a configuracao do express)
