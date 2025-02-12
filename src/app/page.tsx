@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Edit, Trash } from 'lucide-react';
 import api from './services/api';
+import useUsers from './hooks/useGetUsers';
+import useDeleteUsers from './hooks/useDeleteUsers';
 
 type User = {
   id: number;
@@ -12,36 +14,13 @@ type User = {
 }
 
 export default function Home() {
-  const [users, setUsers] = useState<User[]>([]);
+  const { users, getUsers } = useUsers();
+  const { deleteUsers } = useDeleteUsers();
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const inputName = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputAge = useRef<HTMLInputElement>(null);
-
-  async function getUsers() {
-    try {
-      const userFromApi = await api.get("/users");
-
-      if (!userFromApi.data) {
-        console.log("Nenhum usuário cadastrado");
-        return;
-      }
-
-      setUsers(userFromApi.data);
-    } catch (error) {
-      console.log("Erro ao buscar usuários", error);
-    }
-  }
-
-  async function deleteUsers(id: number) {
-    try {
-      await api.delete(`/user/${id}`);
-      getUsers();
-    } catch (error) {
-      console.log("Erro ao deletar usuário", error);
-    }
-  }
 
   async function createUsers(event: React.FormEvent) {
     event.preventDefault();
@@ -99,9 +78,6 @@ export default function Home() {
     setEditingUser(user);
   }
 
-  useEffect(() => {
-    getUsers();
-  }, [])
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
@@ -148,13 +124,12 @@ export default function Home() {
           />
         </div>
         <div className="mb-2 text-center">
-        <button
+          <button
             type="submit"
-            className={`px-4 py-2 rounded-md transition-all ${
-              editingUser
+            className={`px-4 py-2 rounded-md transition-all ${editingUser
                 ? "bg-yellow-500 text-white hover:bg-yellow-600"
                 : "bg-blue-500 text-white hover:bg-blue-600"
-            }`}
+              }`}
             onClick={createUsers}
           >
             {editingUser ? "Atualizar" : "Cadastrar"}
@@ -165,7 +140,8 @@ export default function Home() {
       <div className="bg-white p-4 rounded shadow-md w-1/3 mt-4">
         <h1 className="text-2xl text-center mb-4 font-semibold">Usuários Cadastrados</h1>
 
-        {users.map((user) => (
+
+         {users.map((user) => (
           <ul key={user.id} className="mb-2 border-b pb-2">
             <li>Nome: {user.name}</li>
             <li>E-mail: {user.email} </li>
@@ -174,7 +150,7 @@ export default function Home() {
               <button
                 type='button'
                 className='text-blue-500 hover:text-blue-700 mr-1'
-                onClick={() => {handleEditUser(user)}}
+                onClick={() => { handleEditUser(user) }}
               >
                 <Edit size={18} />
               </button>
@@ -187,7 +163,7 @@ export default function Home() {
               </button>
             </div>
           </ul>
-        ))}
+        ))} 
       </div>
     </div>
   )
