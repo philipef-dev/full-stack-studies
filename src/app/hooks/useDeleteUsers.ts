@@ -1,8 +1,7 @@
 import api from "../services/api";
-import getUsers from '../hooks/useGetUsers';
-const useDeleteUsers = () => { 
-    
-    async function deleteUsers(id: number) {
+
+const useDeleteUsers = () => {    
+    async function deleteUsers(id: number, getUsers:() => void) {
         try {
           await api.delete(`/user/${id}`);
             getUsers();

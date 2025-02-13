@@ -5,7 +5,7 @@ type User = {
     id: number;
     name: string;
     email: string;
-    age: number;
+    age: string;
 }
 
 const useUsers = () => {
