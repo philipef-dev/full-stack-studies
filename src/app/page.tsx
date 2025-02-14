@@ -38,34 +38,32 @@ export default function Home() {
   }
 
   async function createOrUpdateUser() {
-    if (!name.trim() || !email.trim() || !age.trim())
+    if (!name.trim() || !email.trim() || !age.trim()) {
+      alert('Todos os campos são obrigatórios');
+      return
+    }
 
-
-      try {
-        if (editingUser) {
-          await api.put(`/user/${editingUser.id}`, {
-            name,
-            email,
-            age
-          });
-          getUsers();
-          reseatForm();
-          return;
-
-        } else {
-
-          await api.post("/user", {
-            name,
-            email,
-            age
-          });
-          getUsers();
-          reseatForm();
-
-        }
-      } catch (error) {
-        console.log(error);
-      };
+    try {
+      if (editingUser) {
+        await api.put(`/user/${editingUser.id}`, {
+          name,
+          email,
+          age
+        });
+        getUsers();
+        reseatForm();
+      } else {
+        await api.post("/user", {
+          name,
+          email,
+          age
+        });
+        getUsers();
+        reseatForm();
+      }
+    } catch (error) {
+      console.log(error);
+    };
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -107,6 +105,7 @@ export default function Home() {
             E-mail:
           </label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -121,6 +120,7 @@ export default function Home() {
             Idade:
           </label>
           <input
+            id='age'
             type="text"
             value={age}
             onChange={(e) => setAge(e.target.value)}
@@ -134,7 +134,6 @@ export default function Home() {
               ? "bg-yellow-500 text-white hover:bg-yellow-600"
               : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
-            onClick={createOrUpdateUser}
           >
             {editingUser ? "Atualizar" : "Cadastrar"}
           </button>
@@ -143,7 +142,6 @@ export default function Home() {
 
       <div className="bg-white p-4 rounded shadow-md w-1/3 mt-4">
         <h1 className="text-2xl text-center mb-4 font-semibold">Usuários Cadastrados</h1>
-
 
         {users.map((user) => (
           <ul key={user.id} className="mb-2 border-b pb-2">
